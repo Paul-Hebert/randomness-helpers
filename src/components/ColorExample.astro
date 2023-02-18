@@ -1,0 +1,13 @@
+---
+import Example from "./Example.astro";
+const { exampleFunction } = Astro.props;
+---
+
+<Example
+  exampleFunction={exampleFunction}
+  displayFunction={(value: string) => `
+  ${value}
+
+  <div style="background-color: ${value}; width:100px; height: 100px;"></div>
+`}
+/>
