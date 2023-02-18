@@ -1,5 +1,5 @@
-import Srand from "seeded-rand";
 import { roundToPrecision } from "./round-to-precision/round-to-precision";
+import { create } from "random-seed";
 
 interface SeededOptions {
   precision: number;
@@ -7,8 +7,8 @@ interface SeededOptions {
 
 const defaultOptions = { precision: 2 };
 
-export function seeded(seed: string, options?: SeededOptions) {
-  const seededRandom = new Srand(seed || new Date());
+export function seeded(seed?: number, options?: SeededOptions) {
+  const seededRandom = create(seed);
 
   // Construct options
   const { precision } = {
@@ -16,14 +16,16 @@ export function seeded(seed: string, options?: SeededOptions) {
     ...(options || {}),
   };
 
+  const randomDecimal = () => seededRandom.floatBetween(0, 1);
+
   const newSeed = (min: number, max: number) =>
-    roundToPrecision(seededRandom.random() * (max - min) + min, precision);
+    roundToPrecision(randomDecimal() * (max - min) + min, precision);
 
-  newSeed.decimal = () => roundToPrecision(seededRandom.random(), precision);
-  newSeed.percent = () =>
-    roundToPrecision(seededRandom.random() * 100, precision);
+  newSeed.decimal = () => roundToPrecision(randomDecimal(), precision);
+  newSeed.percent = () => roundToPrecision(randomDecimal() * 100, precision);
 
-  newSeed.hue = () => roundToPrecision(newSeed(0, 360), precision);
+  newSeed.hue = () =>
+    roundToPrecision(seededRandom.floatBetween(0, 360), precision);
   newSeed.saturation = newSeed.percent;
   newSeed.lightness = newSeed.percent;
   newSeed.alpha = newSeed.percent;

@@ -1,16 +1,24 @@
 ---
-const { exampleFunction, displayFunction } = Astro.props;
 import { seeded } from "../../lib/index";
+import { Code } from "astro/components";
+const { exampleFunction, displayFunction, seed } = Astro.props;
 
 const codeExample = exampleFunction;
 
-const rando = seeded("rando");
+const rando = seeded(seed);
 
 const value = eval(exampleFunction);
 
 const displayedValue = displayFunction ? displayFunction(value) : value;
 ---
 
-<pre><code>{codeExample}</code></pre>
+<Code
+  lang="js"
+  code={`
+import { seeded } from "seeded"; 
+const rando = seeded('${seed}');
+${codeExample}
+`.trim()}
+/>
 
 <output set:html={displayedValue} />

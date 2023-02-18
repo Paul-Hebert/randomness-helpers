@@ -1,36 +1,60 @@
 ---
 import Example from "../components/Example.astro";
 import ColorExample from "../components/ColorExample.astro";
+
+const startingSeed = Math.random();
 ---
 
 <h1>Seeded!</h1>
 
+<label
+  >Current Seed: <input type="text" name="seed" value={startingSeed} /></label
+>
+
 <h2>Random Number Between Two Values</h2>
 
-<Example exampleFunction={"rando(5, 20);"} />
+<Example exampleFunction={"rando(5, 20);"} seed={startingSeed} />
 
 <h2>Random Decimal (Between 0 and 1)</h2>
 
-<Example exampleFunction={"rando.decimal();"} />
+<Example exampleFunction={"rando.decimal();"} seed={startingSeed} />
 
 <h2>Random Percent (Between 0 and 100)</h2>
 
-<Example exampleFunction={"rando.percent();"} />
+<Example exampleFunction={"rando.percent();"} seed={startingSeed} />
 
 <h2>Colors</h2>
 
 <h3>HSL Color</h3>
 
-<ColorExample exampleFunction={"rando.hsl();"} />
+<ColorExample exampleFunction={"rando.hsl();"} seed={startingSeed} />
 
 <h3>Hue (Between 0 and 360)</h3>
 
-<Example exampleFunction={"rando.hue();"} />
+<Example exampleFunction={"rando.hue();"} seed={startingSeed} />
 
 <h3>Saturation (Between 0 and 100)</h3>
 
-<Example exampleFunction={"rando.saturation();"} />
+<Example exampleFunction={"rando.saturation();"} seed={startingSeed} />
 
 <h3>Lightness (Between 0 and 100)</h3>
 
-<Example exampleFunction={"rando.lightness();"} />
+<Example exampleFunction={"rando.lightness();"} seed={startingSeed} />
+
+<style is:global>
+  .astro-code {
+    line-height: 1.5;
+    padding: 1em;
+    margin-bottom: 0;
+    border-top-right-radius: 0.25em;
+    border-top-left-radius: 0.25em;
+  }
+
+  output {
+    display: block;
+    background: #ccd;
+    padding: 1em;
+    border-bottom-right-radius: 0.25em;
+    border-bottom-left-radius: 0.25em;
+  }
+</style>
