@@ -1,10 +1,9 @@
 ---
 import { Code } from "astro/components";
 
-const { exampleFunction, displayFunction, codePrefix } = Astro.props;
+const { exampleFunction, displayFunction } = Astro.props;
 
-const codeExample =
-  (codePrefix || "") + exampleFunction.toString().replace("() => ", "");
+const codeExample = exampleFunction.toString().replace("() => ", "");
 
 const value = exampleFunction();
 
