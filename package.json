@@ -3,14 +3,14 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "start": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy"
   },
   "dependencies": {
-    "astro": "^2.0.14",
     "random-seed": "^0.3.0"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0",
+    "@11ty/eleventy-plugin-webc": "^0.8.1"
   }
 }

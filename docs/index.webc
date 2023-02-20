@@ -1,0 +1,8 @@
+---
+layout: 'base.hbs'
+title: 'Seeded'
+---
+
+Test
+
+<code-example></code-example>
