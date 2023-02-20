@@ -1,4 +1,4 @@
-export function roundToPrecision(value, precision) {
+export function roundToPrecision(value: number, precision: number) {
   let rounder = 1;
 
   for (let i = 0; i < precision; i++) {
