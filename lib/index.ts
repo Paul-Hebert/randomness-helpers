@@ -1,5 +1,7 @@
 import { roundToPrecision } from "./round-to-precision/round-to-precision";
-import { create } from "random-seed";
+import randomSeed from "random-seed";
+
+const { create } = randomSeed;
 
 interface SeededOptions {
   precision: number;

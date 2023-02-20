@@ -1,13 +1,12 @@
 ---
-import { seeded } from "../../lib/index";
 import { Code } from "astro/components";
-const { exampleFunction, displayFunction, seed, codePrefix } = Astro.props;
 
-const codeExample = (codePrefix || "") + exampleFunction;
+const { exampleFunction, displayFunction, codePrefix } = Astro.props;
 
-const rando = seeded(seed);
+const codeExample =
+  (codePrefix || "") + exampleFunction.toString().replace("() => ", "");
 
-const value = eval(exampleFunction);
+const value = exampleFunction();
 
 const displayedValue = displayFunction ? displayFunction(value) : value;
 ---
