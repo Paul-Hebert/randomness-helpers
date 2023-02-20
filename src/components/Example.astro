@@ -1,9 +1,9 @@
 ---
 import { seeded } from "../../lib/index";
 import { Code } from "astro/components";
-const { exampleFunction, displayFunction, seed } = Astro.props;
+const { exampleFunction, displayFunction, seed, codePrefix } = Astro.props;
 
-const codeExample = exampleFunction;
+const codeExample = (codePrefix || "") + exampleFunction;
 
 const rando = seeded(seed);
 
@@ -12,13 +12,8 @@ const value = eval(exampleFunction);
 const displayedValue = displayFunction ? displayFunction(value) : value;
 ---
 
-<Code
-  lang="js"
-  code={`
-import { seeded } from "seeded"; 
-const rando = seeded('${seed}');
-${codeExample}
-`.trim()}
-/>
+<div class="example">
+  <Code lang="js" code={codeExample} />
 
-<output set:html={displayedValue} />
+  <output set:html={displayedValue} />
+</div>

@@ -2,20 +2,33 @@
 import Layout from "../layouts/Layout.astro";
 import Example from "../components/Example.astro";
 import ColorExample from "../components/ColorExample.astro";
+import { Code } from "astro/components";
 
 const startingSeed = Math.random();
 ---
 
 <Layout title="Seeded">
-  <h1>Seeded!</h1>
+  <h1>Seeded</h1>
 
-  <label
+  <h2>Installation</h2>
+
+  <Code lang="bash" code="npm i seeded" />
+
+  <!-- <label
     >Current Seed: <input type="text" name="seed" value={startingSeed} /></label
-  >
+  > -->
 
   <h2>Random Number Between Two Values</h2>
 
-  <Example exampleFunction={"rando(5, 20);"} seed={startingSeed} />
+  <Example
+    exampleFunction={"rando(5, 20);"}
+    seed={startingSeed}
+    codePrefix={`import { seeded } from "seeded"; 
+
+// Initialize our random number generator with a seed
+const rando = seeded('${startingSeed}');
+`}
+  />
 
   <h2>Random Decimal (Between 0 and 1)</h2>
 
@@ -44,12 +57,20 @@ const startingSeed = Math.random();
   <Example exampleFunction={"rando.lightness();"} seed={startingSeed} />
 
   <style is:global>
+    html {
+      font-size: clamp(1em, calc(0.8em + 0.5vw), 1.25em);
+      font-family: sans-serif;
+    }
+
+    body {
+      max-width: 55ch;
+      margin: 0 auto;
+    }
+
     .astro-code {
       line-height: 1.5;
       padding: 1em;
-      margin-bottom: 0;
-      border-top-right-radius: 0.25em;
-      border-top-left-radius: 0.25em;
+      border-radius: 0.25em;
     }
 
     output {
@@ -58,6 +79,12 @@ const startingSeed = Math.random();
       padding: 1em;
       border-bottom-right-radius: 0.25em;
       border-bottom-left-radius: 0.25em;
+    }
+
+    .example .astro-code {
+      margin-bottom: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
     }
   </style>
 </Layout>
