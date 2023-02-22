@@ -1,0 +1,246 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Example from "../components/Example.astro";
+import { seeded } from "../../lib/index.js";
+import { Code } from "astro/components";
+
+const startingSeed = Math.random();
+const seedling = seeded(startingSeed);
+
+const startupCode = `import { seeded } from 'seeded'; 
+
+// Initialize our random number generator with a seed
+const seedling = seeded('${startingSeed}')`;
+
+const colorDisplayFunction = (value: string) =>
+  `<div style="background-color: ${value}; padding: 2em;">
+    <div style="background: #fffe; padding: 0.5em;">${value}</div>
+  </div>
+`;
+---
+
+<Layout title="Seeded">
+  <h1>Seeded</h1>
+
+  <p>
+    A collection of helper functions to generate seeded random values for
+    generative art.
+  </p>
+
+  <!-- 
+  <h2>Examples</h2>
+
+  <div class="example-group">
+    <Example
+      exampleFunction={() => {
+        const starSize = seedling(5, 10);
+        const star = `<circle cx="50" cy="50" r="${starSize}" fill="${seedling.hsl(
+          { h: [0, 100], s: [80, 100], l: [50, 80] }
+        )}" />`;
+        const planets = [];
+
+        for (
+          let distance = starSize + 5;
+          distance < 40;
+          distance += seedling(5, 10)
+        ) {
+          const orbit = `<circle cx="50" cy="50" fill="none" stroke="#ccc" r="${distance}"/>`;
+          const planet = `<circle 
+            cx="50" 
+            cy="${50 + distance}" 
+            fill="${seedling.hsl({ s: [80, 100], l: [60, 90] })}"  
+            r="${seedling(2, 4)}"
+          />`;
+          planets.push(`
+            <g style="transform-origin: center; rotate: ${seedling.degree()}deg;">
+              ${orbit}
+              ${planet}
+            </g>
+          `);
+        }
+        return `
+        <svg viewBox="0 0 100 100" width="300" height="300" style="background: #000">
+          ${star}
+          ${planets.join("\n")}
+        </svg>
+      `;
+      }}
+      seed={startingSeed}
+      prefixedCode={startupCode}
+    />
+  </div> -->
+
+  <h2>Installation</h2>
+
+  <Code lang="bash" code="npm i seeded" />
+
+  <!-- <label
+    >Current Seed: <input type="text" name="seed" value={startingSeed} /></label
+  > -->
+
+  <h2>Initialization</h2>
+
+  <p>
+    The <code>seeded</code> import returns a function which you can call to get a
+    new seeded random number generator. It accepts a <code>seed</code> argument.
+    We're calling our generator <code>seedling</code> in the examples, but you can
+    call yours whatever you want.
+  </p>
+
+  <Code lang="js" code={startupCode} />
+
+  <p>
+    You can call the "seedling" directly to generate a random number between two
+    values:
+  </p>
+  <Example exampleFunction={() => seedling(5, 20)} seed={startingSeed} />
+
+  <p>
+    The "seedling" also has a number of helper methods. For example, here are a
+    few common random number helpers
+  </p>
+
+  <div class="example-group">
+    <Example exampleFunction={() => seedling.int(5, 20)} seed={startingSeed} />
+
+    <Example exampleFunction={() => seedling.decimal()} seed={startingSeed} />
+
+    <Example exampleFunction={() => seedling.percent()} seed={startingSeed} />
+  </div>
+
+  <h2>Colors</h2>
+
+  <p>There are also helpers to generate random HSL colors.</p>
+
+  <p>
+    You can generate a completely random color, or pass in an object with
+    optional `h`, `s`, `l`, and `a` properties. Each property should either be
+    an exact value, or an array with `[min, max]` values.
+  </p>
+
+  <div class="example-group">
+    <Example
+      exampleFunction={() => seedling.hsl()}
+      seed={startingSeed}
+      displayFunction={colorDisplayFunction}
+    />
+
+    <Example
+      exampleFunction={() => seedling.hsl({ h: [0, 60] })}
+      seed={startingSeed}
+      displayFunction={colorDisplayFunction}
+    />
+
+    <Example
+      exampleFunction={() => seedling.hsl({ s: [40, 60], l: 75 })}
+      seed={startingSeed}
+      displayFunction={colorDisplayFunction}
+    />
+  </div>
+
+  <p>
+    You can also generate individual <code>hue</code>, <code>saturation</code>,
+    and <code>lightness</code> values:
+  </p>
+
+  <div class="example-group">
+    <Example exampleFunction={() => seedling.hue()} seed={startingSeed} />
+    <Example
+      exampleFunction={() => seedling.saturation()}
+      seed={startingSeed}
+    />
+    <Example exampleFunction={() => seedling.lightness()} seed={startingSeed} />
+  </div>
+
+  <h2>Geometry</h2>
+
+  <div class="example-group">
+    <Example
+      exampleFunction={() => seedling.degree()}
+      seed={startingSeed}
+      displayFunction={(value: string) =>
+        `${value}:
+        
+        <svg style="rotate: ${value}deg; overflow: visible;" viewBox="0 0 100 100" width="100" height="100">
+            <circle fill="#fff6" stroke="#000" r="49" cx="50" cy="50" />
+            <circle fill="#000" r="10" cx="50" cy="50" />
+            <circle fill="#000" r="5" cx="50" cy="1" />
+            <line fill="none" stroke="#000" x1="50" y1="50" x2="50" y2="1" />
+          </svg>
+        `}
+    />
+  </div>
+
+  <h2>Chance</h2>
+
+  <div class="example-group">
+    <Example
+      exampleFunction={() => (seedling.chance(0.75) ? "cloudy" : "meatballs")}
+      seed={startingSeed}
+    />
+    <Example
+      exampleFunction={() =>
+        seedling.itemInArray(["poppy", "coriander", "mustard"])}
+      seed={startingSeed}
+    />
+  </div>
+
+  <style is:global>
+    *,
+    *:before,
+    *:after {
+      margin: 0;
+      line-height: 1.4;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: clamp(1em, calc(0.8em + 0.5vw), 1.25em);
+      font-family: sans-serif;
+    }
+
+    body {
+      max-width: 80ch;
+      margin: 0 auto;
+      padding: 4em 1em;
+    }
+
+    body > * + * {
+      margin-top: 1em;
+    }
+
+    body > * + :is(h1, h2, h3, h4, h5, h6) {
+      margin-top: 1.5em;
+    }
+
+    .example-group {
+      display: flex;
+      gap: 0.75em;
+      flex-wrap: wrap;
+    }
+
+    .example-group > * {
+      flex-grow: 1;
+    }
+
+    .astro-code {
+      line-height: 1.5;
+      padding: 1em;
+      border-radius: 0.25em;
+    }
+
+    output {
+      display: block;
+      background: #ccd;
+      padding: 1em;
+      border-bottom-right-radius: 0.25em;
+      border-bottom-left-radius: 0.25em;
+    }
+
+    .example .astro-code {
+      margin-bottom: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  </style>
+</Layout>
