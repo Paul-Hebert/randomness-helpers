@@ -3,8 +3,11 @@ import { Code } from "astro/components";
 
 const { exampleFunction, displayFunction, prefixedCode } = Astro.props;
 
-const codeExample =
-  (prefixedCode || "") + exampleFunction.toString().replace("() => ", "");
+let codeExample = exampleFunction.toString().replace("() => ", "");
+
+if (prefixedCode) {
+  codeExample = prefixedCode + "\n" + codeExample;
+}
 
 const value = exampleFunction();
 

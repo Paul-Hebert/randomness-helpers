@@ -16,7 +16,7 @@ interface HslOptions {
 
 const defaultOptions = { precision: 2 };
 
-export function seeded(seed?: number, options?: SeededOptions) {
+export function seed(seed?: number, options?: SeededOptions) {
   const seededRandom = create(seed);
 
   // Construct options

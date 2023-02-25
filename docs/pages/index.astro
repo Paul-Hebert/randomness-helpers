@@ -1,16 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Example from "../components/Example.astro";
-import { seeded } from "../../lib/index.js";
+import { seed } from "../../lib/index.js";
 import { Code } from "astro/components";
 
 const startingSeed = Math.random();
-const seedling = seeded(startingSeed);
+const seedling = seed(startingSeed);
 
-const startupCode = `import { seeded } from 'seeded'; 
+const startupCode = `import { seed } from 'seeded-helpers'; 
 
 // Initialize our random number generator with a seed
-const seedling = seeded('${startingSeed}')`;
+const seedling = seed('${startingSeed}')`;
 
 const colorDisplayFunction = (value: string) =>
   `<div style="background-color: ${value}; padding: 2em;">
@@ -72,7 +72,7 @@ const colorDisplayFunction = (value: string) =>
 
   <h2>Installation</h2>
 
-  <Code lang="bash" code="npm i seeded" />
+  <Code lang="bash" code="npm i seeded-helpers" />
 
   <!-- <label
     >Current Seed: <input type="text" name="seed" value={startingSeed} /></label
@@ -81,7 +81,7 @@ const colorDisplayFunction = (value: string) =>
   <h2>Initialization</h2>
 
   <p>
-    The <code>seeded</code> import returns a function which you can call to get a
+    The package exports a <code>seed</code> function which you can call to get a
     new seeded random number generator. It accepts a <code>seed</code> argument.
     We're calling our generator <code>seedling</code> in the examples, but you can
     call yours whatever you want.
@@ -108,14 +108,42 @@ const colorDisplayFunction = (value: string) =>
     <Example exampleFunction={() => seedling.percent()} seed={startingSeed} />
   </div>
 
+  <h2>Chance</h2>
+
+  <p>There are a few helpers for common randomness operations.</p>
+
+  <p>
+    <code>chance</code> returns either true or false. By default, it has a 50% chance
+    of being `true` but you can pass in an optional likelihood variable.
+  </p>
+
+  <div class="example-group">
+    <Example
+      prefixedCode="// A 50% chance of `good`"
+      exampleFunction={() => (seedling.chance() ? "good" : "bad")}
+      seed={startingSeed}
+    />
+    <Example
+      prefixedCode="// A 75% chance of `cloudy`"
+      exampleFunction={() => (seedling.chance(0.75) ? "cloudy" : "meatballs")}
+      seed={startingSeed}
+    />
+  </div>
+
   <h2>Colors</h2>
 
   <p>There are also helpers to generate random HSL colors.</p>
 
   <p>
     You can generate a completely random color, or pass in an object with
-    optional `h`, `s`, `l`, and `a` properties. Each property should either be
-    an exact value, or an array with `[min, max]` values.
+    optional <code>h</code>, <code>s</code>, <code>l</code>, and <code>a</code> properties.
+    (For hue, saturation, lightness, and alpha (transparency.))
+  </p>
+  <p>
+    Each property should either be an exact value, or an array with <code
+      >[min, max]</code
+    >
+    values.
   </p>
 
   <div class="example-group">
@@ -162,28 +190,21 @@ const colorDisplayFunction = (value: string) =>
         `${value}:
         
         <svg style="rotate: ${value}deg; overflow: visible;" viewBox="0 0 100 100" width="100" height="100">
-            <circle fill="#fff6" stroke="#000" r="49" cx="50" cy="50" />
-            <circle fill="#000" r="10" cx="50" cy="50" />
-            <circle fill="#000" r="5" cx="50" cy="1" />
-            <line fill="none" stroke="#000" x1="50" y1="50" x2="50" y2="1" />
-          </svg>
-        `}
+          <circle fill="#fff6" stroke="#000" r="49" cx="50" cy="50" />
+          <circle fill="#000" r="10" cx="50" cy="50" />
+          <circle fill="#000" r="5" cx="50" cy="1" />
+          <line fill="none" stroke="#000" x1="50" y1="50" x2="50" y2="1" />
+        </svg>
+      `}
     />
   </div>
 
-  <h2>Chance</h2>
+  <script>
+    import { seed } from "../../lib/index.js";
 
-  <div class="example-group">
-    <Example
-      exampleFunction={() => (seedling.chance(0.75) ? "cloudy" : "meatballs")}
-      seed={startingSeed}
-    />
-    <Example
-      exampleFunction={() =>
-        seedling.itemInArray(["poppy", "coriander", "mustard"])}
-      seed={startingSeed}
-    />
-  </div>
+    const seedling = seed(Math.random());
+    document.body.style.setProperty("--hue", seedling.hue().toString());
+  </script>
 
   <style is:global>
     *,
@@ -195,22 +216,34 @@ const colorDisplayFunction = (value: string) =>
     }
 
     html {
+      --hue: 240;
       font-size: clamp(1em, calc(0.8em + 0.5vw), 1.25em);
       font-family: sans-serif;
     }
 
     body {
+      color: hsl(var(--hue), 80%, 5%);
+      background-color: hsl(var(--hue), 10%, 98%);
+
       max-width: 80ch;
       margin: 0 auto;
       padding: 4em 1em;
     }
 
+    p {
+      max-width: 70ch;
+    }
+
     body > * + * {
-      margin-top: 1em;
+      margin-top: 1.25em;
     }
 
     body > * + :is(h1, h2, h3, h4, h5, h6) {
       margin-top: 1.5em;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6) {
+      color: hsl(var(--hue), 100%, 10%);
     }
 
     .example-group {
@@ -223,7 +256,16 @@ const colorDisplayFunction = (value: string) =>
       flex-grow: 1;
     }
 
-    .astro-code {
+    :not(pre) > code {
+      color: hsl(var(--hue), 100%, 15%);
+      background-color: hsl(var(--hue), 50%, 97%);
+      border: 1px solid hsl(var(--hue), 50%, 85%);
+      padding: 0.08em 0.2em;
+      border-radius: 0.25em;
+    }
+
+    pre.astro-code {
+      background-color: hsl(var(--hue), 20%, 10%) !important;
       line-height: 1.5;
       padding: 1em;
       border-radius: 0.25em;
@@ -231,7 +273,7 @@ const colorDisplayFunction = (value: string) =>
 
     output {
       display: block;
-      background: #ccd;
+      background-color: hsl(var(--hue), 10%, 90%);
       padding: 1em;
       border-bottom-right-radius: 0.25em;
       border-bottom-left-radius: 0.25em;
