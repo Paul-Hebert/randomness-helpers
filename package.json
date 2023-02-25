@@ -12,5 +12,8 @@
   "dependencies": {
     "astro": "^2.0.14",
     "random-seed": "^0.3.0"
+  },
+  "devDependencies": {
+    "jest": "^29.4.3"
   }
 }

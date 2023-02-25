@@ -11,3 +11,4 @@
 - Publish to NPM
 - Docs: add "Refresh" buttons
 - TypeScript/JS tabs for docs
+- Tidy/standardize/automate docs

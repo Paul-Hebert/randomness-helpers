@@ -1,8 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Example from "../components/Example.astro";
-import { random } from "../../lib/index.js";
+import {
+  random,
+  randomDecimal,
+  randomInt,
+  randomPercent,
+  randomChance,
+  randomDegree,
+  randomItemInArray,
+  randomHsl,
+  randomHue,
+  randomLightness,
+  randomSaturation,
+  randomAlpha,
+  setRandomPrecision,
+  setSeed,
+} from "../../lib/index.js";
 import { Code } from "astro/components";
+
+// setRandomPrecision(5);
+// setSeed(5);
 
 const colorDisplayFunction = (value: string) =>
   `<div style="background-color: ${value}; padding: 2em;">
@@ -68,17 +86,17 @@ const colorDisplayFunction = (value: string) =>
 
   <Code lang="bash" code="npm i randomness-helpers" />
 
-  <p>
-    The package exports a <code>random</code> helper
-  </p>
-
-  <Code lang="js" code={`import { random } from 'randomness-helpers';`} />
+  <h2>Number Helpers</h2>
 
   <p>
     You can call <code>random</code> directly to generate a random number between
     two values:
   </p>
-  <Example callbackFunction={() => random(5, 20)} codeExample="random(5, 20)" />
+  <Example
+    callbackFunction={() => random(5, 20)}
+    codeExample={`import { random } from 'randomness-helpers';
+random(5, 20);`}
+  />
 
   <p>
     <code>random</code> also has a number of helper methods for generating different
@@ -88,22 +106,25 @@ const colorDisplayFunction = (value: string) =>
 
   <div class="example-group">
     <Example
-      callbackFunction={() => random.int(0, 100)}
-      codeExample="random.int(0, 100)"
+      callbackFunction={() => randomInt(0, 100)}
+      codeExample={`import { randomInt } from 'randomness-helpers';
+randomInt();`}
     />
 
     <Example
-      callbackFunction={() => random.decimal()}
-      codeExample="random.decimal()"
+      callbackFunction={() => randomDecimal()}
+      codeExample={`import { randomDecimal } from 'randomness-helpers';
+randomDecimal();`}
     />
 
     <Example
-      callbackFunction={() => random.percent()}
-      codeExample="random.percent()"
+      callbackFunction={() => randomPercent()}
+      codeExample={`import { randomPercent } from 'randomness-helpers';
+randomPercent();`}
     />
   </div>
 
-  <h2>Seeded Randomness</h2>
+  <!-- <h2>Seeded Randomness</h2>
 
   <p>
     By default, the helper methods rely on <code>Math.random</code>. If you
@@ -128,7 +149,7 @@ const colorDisplayFunction = (value: string) =>
 const random = seed(123);
 
 random(0, 100);`}
-  />
+  /> -->
 
   <h2>Chance</h2>
 
@@ -141,16 +162,22 @@ random(0, 100);`}
 
   <div class="example-group">
     <Example
-      codeExample={`// A 50% chance of "good"
-random.chance() ? "good" : "bad"`}
-      callbackFunction={() => (random.chance() ? "good" : "bad")}
+      codeExample={`import { randomChance } from 'randomness-helpers';
+      
+// A 50% chance of "heads"
+randomChance() ? "heads" : "tails";`}
+      callbackFunction={() => (randomChance() ? "heads" : "tails")}
     />
     <Example
-      codeExample={`// A 75% chance of "cloudy"
-random.chance(0.75) ? "cloudy" : "meatballs"`}
-      callbackFunction={() => (random.chance(0.75) ? "cloudy" : "meatballs")}
+      codeExample={`import { randomChance } from 'randomness-helpers';
+      
+// A 75% chance of "cloudy"
+randomChance(0.75) ? "cloudy" : "meatballs";`}
+      callbackFunction={() => (randomChance(0.75) ? "cloudy" : "meatballs")}
     />
   </div>
+
+  <!-- TODO: Item in Array -->
 
   <h2>Colors</h2>
 
@@ -162,27 +189,29 @@ random.chance(0.75) ? "cloudy" : "meatballs"`}
     (For hue, saturation, lightness, and alpha (transparency.))
   </p>
   <p>
-    Each property should either be an exact value, or an array with <code
-      >[min, max]</code
-    >
+    Each property should either be an exact value, or an array with
+    <code>[min, max]</code>
     values.
   </p>
 
   <div class="example-group">
     <Example
-      callbackFunction={() => colorDisplayFunction(random.hsl())}
-      codeExample="random.hsl()"
+      callbackFunction={() => colorDisplayFunction(randomHsl())}
+      codeExample={`import { randomHsl } from 'randomness-helpers';
+randomHsl();`}
     />
 
     <Example
-      callbackFunction={() => colorDisplayFunction(random.hsl({ h: [0, 60] }))}
-      codeExample="random.hsl({ h: [0, 60] })"
+      callbackFunction={() => colorDisplayFunction(randomHsl({ h: [0, 60] }))}
+      codeExample={`import { randomHsl } from 'randomness-helpers';
+randomHsl({ h: [0, 60] });`}
     />
 
     <Example
       callbackFunction={() =>
-        colorDisplayFunction(random.hsl({ s: [40, 60], l: 75 }))}
-      codeExample="random.hsl({ s: [40, 60], l: 75 })"
+        colorDisplayFunction(randomHsl({ s: [40, 60], l: 75 }))}
+      codeExample={`import { randomHsl } from 'randomness-helpers';
+randomHsl({ s: [40, 60], l: 75 });`}
     />
   </div>
 
@@ -192,14 +221,20 @@ random.chance(0.75) ? "cloudy" : "meatballs"`}
   </p>
 
   <div class="example-group">
-    <Example callbackFunction={() => random.hue()} codeExample="random.hue()" />
     <Example
-      callbackFunction={() => random.saturation()}
-      codeExample="random.saturation()"
+      callbackFunction={() => randomHue()}
+      codeExample={`import { randomHue } from 'randomness-helpers';
+randomHue();`}
     />
     <Example
-      callbackFunction={() => random.lightness()}
-      codeExample="random.lightness()"
+      callbackFunction={() => randomSaturation()}
+      codeExample={`import { randomSaturation } from 'randomness-helpers';
+randomSaturation();`}
+    />
+    <Example
+      callbackFunction={() => randomLightness()}
+      codeExample={`import { randomLightness } from 'randomness-helpers';
+randomLightness();`}
     />
   </div>
 
@@ -207,9 +242,10 @@ random.chance(0.75) ? "cloudy" : "meatballs"`}
 
   <div class="example-group">
     <Example
-      codeExample="random.degree()"
+      codeExample={`import { randomDegree } from 'randomness-helpers';
+randomDegree();`}
       callbackFunction={() => {
-        const value = random.degree();
+        const value = randomDegree();
         return `${value}:
         
         <svg style="rotate: ${value}deg; overflow: visible;" viewBox="0 0 100 100" width="100" height="100">
