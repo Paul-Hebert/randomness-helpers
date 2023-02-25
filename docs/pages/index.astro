@@ -1,16 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Example from "../components/Example.astro";
-import { seed } from "../../lib/index.js";
+import { random } from "../../lib/index.js";
 import { Code } from "astro/components";
-
-const startingSeed = Math.random();
-const seedling = seed(startingSeed);
-
-const startupCode = `import { seed } from 'seeded-helpers'; 
-
-// Initialize our random number generator with a seed
-const seedling = seed('${startingSeed}')`;
 
 const colorDisplayFunction = (value: string) =>
   `<div style="background-color: ${value}; padding: 2em;">
@@ -19,12 +11,12 @@ const colorDisplayFunction = (value: string) =>
 `;
 ---
 
-<Layout title="Seeded">
-  <h1>Seeded</h1>
+<Layout title="Randomness Helpers">
+  <h1>Randomness Helpers</h1>
 
   <p>
-    A collection of helper functions to generate seeded random values for
-    generative art.
+    A collection of helper functions to make it easy to generate random values
+    for generative art, games, and more.
   </p>
 
   <!-- 
@@ -32,9 +24,9 @@ const colorDisplayFunction = (value: string) =>
 
   <div class="example-group">
     <Example
-      exampleFunction={() => {
-        const starSize = seedling(5, 10);
-        const star = `<circle cx="50" cy="50" r="${starSize}" fill="${seedling.hsl(
+      callbackFunction={() => {
+        const starSize = random(5, 10);
+        const star = `<circle cx="50" cy="50" r="${starSize}" fill="${random.hsl(
           { h: [0, 100], s: [80, 100], l: [50, 80] }
         )}" />`;
         const planets = [];
@@ -42,17 +34,17 @@ const colorDisplayFunction = (value: string) =>
         for (
           let distance = starSize + 5;
           distance < 40;
-          distance += seedling(5, 10)
+          distance += random(5, 10)
         ) {
           const orbit = `<circle cx="50" cy="50" fill="none" stroke="#ccc" r="${distance}"/>`;
           const planet = `<circle 
             cx="50" 
             cy="${50 + distance}" 
-            fill="${seedling.hsl({ s: [80, 100], l: [60, 90] })}"  
-            r="${seedling(2, 4)}"
+            fill="${random.hsl({ s: [80, 100], l: [60, 90] })}"  
+            r="${random(2, 4)}"
           />`;
           planets.push(`
-            <g style="transform-origin: center; rotate: ${seedling.degree()}deg;">
+            <g style="transform-origin: center; rotate: ${random.degree()}deg;">
               ${orbit}
               ${planet}
             </g>
@@ -65,48 +57,78 @@ const colorDisplayFunction = (value: string) =>
         </svg>
       `;
       }}
-      seed={startingSeed}
+      
       prefixedCode={startupCode}
     />
   </div> -->
 
-  <h2>Installation</h2>
+  <h2>Getting Started</h2>
 
-  <Code lang="bash" code="npm i seeded-helpers" />
+  You can install the library from npm:
 
-  <!-- <label
-    >Current Seed: <input type="text" name="seed" value={startingSeed} /></label
-  > -->
-
-  <h2>Initialization</h2>
+  <Code lang="bash" code="npm i randomness-helpers" />
 
   <p>
-    The package exports a <code>seed</code> function which you can call to get a
-    new seeded random number generator. It accepts a <code>seed</code> argument.
-    We're calling our generator <code>seedling</code> in the examples, but you can
-    call yours whatever you want.
+    The package exports a <code>random</code> helper
   </p>
 
-  <Code lang="js" code={startupCode} />
+  <Code lang="js" code={`import { random } from 'randomness-helpers';`} />
 
   <p>
-    You can call the "seedling" directly to generate a random number between two
-    values:
+    You can call <code>random</code> directly to generate a random number between
+    two values:
   </p>
-  <Example exampleFunction={() => seedling(5, 20)} seed={startingSeed} />
+  <Example callbackFunction={() => random(5, 20)} codeExample="random(5, 20)" />
 
   <p>
-    The "seedling" also has a number of helper methods. For example, here are a
-    few common random number helpers
+    <code>random</code> also has a number of helper methods for generating different
+    types of numbers, colors, geometric values, and more. For example, here are a
+    few common random number helpers:
   </p>
 
   <div class="example-group">
-    <Example exampleFunction={() => seedling.int(5, 20)} seed={startingSeed} />
+    <Example
+      callbackFunction={() => random.int(0, 100)}
+      codeExample="random.int(0, 100)"
+    />
 
-    <Example exampleFunction={() => seedling.decimal()} seed={startingSeed} />
+    <Example
+      callbackFunction={() => random.decimal()}
+      codeExample="random.decimal()"
+    />
 
-    <Example exampleFunction={() => seedling.percent()} seed={startingSeed} />
+    <Example
+      callbackFunction={() => random.percent()}
+      codeExample="random.percent()"
+    />
   </div>
+
+  <h2>Seeded Randomness</h2>
+
+  <p>
+    By default, the helper methods rely on <code>Math.random</code>. If you
+    would prefer to use seeded random values there is a separate export for
+    that. These functions are slightly slower, but ensure that each time you run
+    a series of random operations with the same seed, they'll return the same
+    values.
+  </p>
+
+  <p>TODO: Explain why this is helpful. Explain it can be slower.</p>
+
+  <p>
+    You'll need to call the <code>seed</code> function with your chosen seed to initialize
+    the random number generator. From there you can use it the same way as the non-seeded
+    helpers.
+  </p>
+
+  <Code
+    lang="js"
+    code={`import { seed } from 'randomness-helpers';
+
+const random = seed(123);
+
+random(0, 100);`}
+  />
 
   <h2>Chance</h2>
 
@@ -119,14 +141,14 @@ const colorDisplayFunction = (value: string) =>
 
   <div class="example-group">
     <Example
-      prefixedCode="// A 50% chance of `good`"
-      exampleFunction={() => (seedling.chance() ? "good" : "bad")}
-      seed={startingSeed}
+      codeExample={`// A 50% chance of "good"
+random.chance() ? "good" : "bad"`}
+      callbackFunction={() => (random.chance() ? "good" : "bad")}
     />
     <Example
-      prefixedCode="// A 75% chance of `cloudy`"
-      exampleFunction={() => (seedling.chance(0.75) ? "cloudy" : "meatballs")}
-      seed={startingSeed}
+      codeExample={`// A 75% chance of "cloudy"
+random.chance(0.75) ? "cloudy" : "meatballs"`}
+      callbackFunction={() => (random.chance(0.75) ? "cloudy" : "meatballs")}
     />
   </div>
 
@@ -148,21 +170,19 @@ const colorDisplayFunction = (value: string) =>
 
   <div class="example-group">
     <Example
-      exampleFunction={() => seedling.hsl()}
-      seed={startingSeed}
-      displayFunction={colorDisplayFunction}
+      callbackFunction={() => colorDisplayFunction(random.hsl())}
+      codeExample="random.hsl()"
     />
 
     <Example
-      exampleFunction={() => seedling.hsl({ h: [0, 60] })}
-      seed={startingSeed}
-      displayFunction={colorDisplayFunction}
+      callbackFunction={() => colorDisplayFunction(random.hsl({ h: [0, 60] }))}
+      codeExample="random.hsl({ h: [0, 60] })"
     />
 
     <Example
-      exampleFunction={() => seedling.hsl({ s: [40, 60], l: 75 })}
-      seed={startingSeed}
-      displayFunction={colorDisplayFunction}
+      callbackFunction={() =>
+        colorDisplayFunction(random.hsl({ s: [40, 60], l: 75 }))}
+      codeExample="random.hsl({ s: [40, 60], l: 75 })"
     />
   </div>
 
@@ -172,22 +192,25 @@ const colorDisplayFunction = (value: string) =>
   </p>
 
   <div class="example-group">
-    <Example exampleFunction={() => seedling.hue()} seed={startingSeed} />
+    <Example callbackFunction={() => random.hue()} codeExample="random.hue()" />
     <Example
-      exampleFunction={() => seedling.saturation()}
-      seed={startingSeed}
+      callbackFunction={() => random.saturation()}
+      codeExample="random.saturation()"
     />
-    <Example exampleFunction={() => seedling.lightness()} seed={startingSeed} />
+    <Example
+      callbackFunction={() => random.lightness()}
+      codeExample="random.lightness()"
+    />
   </div>
 
   <h2>Geometry</h2>
 
   <div class="example-group">
     <Example
-      exampleFunction={() => seedling.degree()}
-      seed={startingSeed}
-      displayFunction={(value: string) =>
-        `${value}:
+      codeExample="random.degree()"
+      callbackFunction={() => {
+        const value = random.degree();
+        return `${value}:
         
         <svg style="rotate: ${value}deg; overflow: visible;" viewBox="0 0 100 100" width="100" height="100">
           <circle fill="#fff6" stroke="#000" r="49" cx="50" cy="50" />
@@ -195,16 +218,10 @@ const colorDisplayFunction = (value: string) =>
           <circle fill="#000" r="5" cx="50" cy="1" />
           <line fill="none" stroke="#000" x1="50" y1="50" x2="50" y2="1" />
         </svg>
-      `}
+      `;
+      }}
     />
   </div>
-
-  <script>
-    import { seed } from "../../lib/index.js";
-
-    const seedling = seed(Math.random());
-    document.body.style.setProperty("--hue", seedling.hue().toString());
-  </script>
 
   <style is:global>
     *,

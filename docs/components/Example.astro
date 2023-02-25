@@ -1,21 +1,11 @@
 ---
 import { Code } from "astro/components";
 
-const { exampleFunction, displayFunction, prefixedCode } = Astro.props;
-
-let codeExample = exampleFunction.toString().replace("() => ", "");
-
-if (prefixedCode) {
-  codeExample = prefixedCode + "\n" + codeExample;
-}
-
-const value = exampleFunction();
-
-const displayedValue = displayFunction ? displayFunction(value) : value;
+const { callbackFunction, codeExample } = Astro.props;
 ---
 
 <div class="example">
   <Code lang="js" code={codeExample} />
 
-  <output set:html={displayedValue} />
+  <output set:html={callbackFunction()} />
 </div>
