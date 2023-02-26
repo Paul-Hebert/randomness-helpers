@@ -1,3 +1,3 @@
 import { random } from "../random";
 
-export const randomInt = (min: number, max: number) => random(min, max, 0);
+export const randomInt = (min = 0, max = 100) => random(min, max, 0);

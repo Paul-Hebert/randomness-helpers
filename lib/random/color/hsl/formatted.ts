@@ -14,16 +14,32 @@ const defaultHslOptions: HslOptions = {
   a: null,
 };
 
-export const randomHsl = (settings?: HslOptions) => {
-  const { h, s, l, a } = {
+const defaultHslaOptions: HslOptions = {
+  ...defaultHslOptions,
+  a: [0, 100],
+};
+
+export const randomHsl = (settings?: HslOptions) =>
+  buildHslFromOptions({
     ...defaultHslOptions,
     ...(settings || {}),
-  };
+  });
+
+export const randomHsla = (settings?: HslOptions) =>
+  buildHslFromOptions({
+    ...defaultHslaOptions,
+    ...(settings || {}),
+  });
+
+const buildHslFromOptions = (settings?: HslOptions) => {
+  const { h, s, l, a } = settings;
 
   const hue = numberOrRangeToNumber(h);
   const sat = numberOrRangeToNumber(s);
   const light = numberOrRangeToNumber(l);
   const alpha = a ? numberOrRangeToNumber(a) : null;
 
-  return `hsl(${hue}, ${sat}%, ${light}%${alpha ? ` ${alpha}%` : ""})`;
+  return `hsl${alpha ? `a` : ""}(${hue}, ${sat}%, ${light}%${
+    alpha ? `, ${alpha}%` : ""
+  })`;
 };
