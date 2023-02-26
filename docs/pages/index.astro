@@ -82,29 +82,24 @@ const colorDisplayFunction = (value: string) =>
 
   <h2>Getting Started</h2>
 
-  You can install the library from npm:
+  <p>You can install the library from npm:</p>
 
   <Code lang="bash" code="npm i randomness-helpers" />
 
   <h2>Number Helpers</h2>
 
   <p>
-    You can call <code>random</code> directly to generate a random number between
-    two values:
-  </p>
-  <Example
-    callbackFunction={() => random(5, 20)}
-    codeExample={`import { random } from 'randomness-helpers';
-random(5, 20);`}
-  />
-
-  <p>
-    <code>random</code> also has a number of helper methods for generating different
-    types of numbers, colors, geometric values, and more. For example, here are a
-    few common random number helpers:
+    The library has a number of helper methods for generating different types of
+    numbers, colors, geometric values, and more. For example, here are a few
+    common random number helpers:
   </p>
 
   <div class="example-group">
+    <Example
+      callbackFunction={() => random(5, 20)}
+      codeExample={`import { random } from 'randomness-helpers';
+random(5, 20);`}
+    />
     <Example
       callbackFunction={() => randomInt(0, 100)}
       codeExample={`import { randomInt } from 'randomness-helpers';
@@ -157,7 +152,7 @@ random(0, 100);`}
 
   <p>
     <code>chance</code> returns either true or false. By default, it has a 50% chance
-    of being `true` but you can pass in an optional likelihood variable.
+    of being <code>true</code> but you can pass in an optional likelihood variable.
   </p>
 
   <div class="example-group">
@@ -177,7 +172,14 @@ randomChance(0.75) ? "cloudy" : "meatballs";`}
     />
   </div>
 
-  <!-- TODO: Item in Array -->
+  <p>You can also easily get a random item from an array:</p>
+
+  <Example
+    codeExample={`import { randomItemInArray } from 'randomness-helpers';
+randomItemInArray(['The Good', 'The Bad', 'The Ugly'])`}
+    callbackFunction={() =>
+      randomItemInArray(["The Good", "The Bad", "The Ugly"])}
+  />
 
   <h2>Colors</h2>
 
@@ -235,6 +237,11 @@ randomSaturation();`}
       callbackFunction={() => randomLightness()}
       codeExample={`import { randomLightness } from 'randomness-helpers';
 randomLightness();`}
+    />
+    <Example
+      callbackFunction={() => randomAlpha()}
+      codeExample={`import { randomAlpha } from 'randomness-helpers';
+randomAlpha();`}
     />
   </div>
 
