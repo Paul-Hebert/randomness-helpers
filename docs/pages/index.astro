@@ -19,12 +19,46 @@ import {
 } from "../../lib/index.js";
 import { Code } from "astro/components";
 
-// setRandomPrecision(5);
-// setSeed(5);
+const advancedExampleCode = `
+const starSize = random(5, 10);
+const star = \`<circle cx="50" cy="50" r="\${starSize}" fill="\${randomHsl(
+  { h: [0, 100], s: [80, 100], l: [50, 80] }
+)}" />\`;
 
-const colorDisplayFunction = (value: string) =>
-  `<div style="background-color: ${value}; padding: 2em;">
-    <div style="background: #fffe; padding: 0.5em;">${value}</div>
+const planets = [];
+
+for (
+  let distance = starSize + 5;
+  distance < 40;
+  distance += random(5, 10)
+) {
+  const orbit = \`<circle cx="50" cy="50" fill="none" stroke="#ccc" r="\${distance}"/>\`;
+  
+  const planet = \`<circle 
+    cx="50" 
+    cy="\${50 + distance}" 
+    fill="\${randomHsl({ s: [80, 100], l: [60, 90] })}"  
+    r="\${random(2, 4)}"
+  />\`;
+
+  planets.push(\`
+    <g style="transform-origin: center; rotate: \${randomDegree()}deg;">
+      \${orbit}
+      \${planet}
+    </g>
+  \`);
+}
+return \`
+  <svg viewBox="0 0 100 100" width="300" height="300" style="background: #000">
+    \${star}
+    \${planets.join("\\n")}
+  </svg>
+\`;`;
+
+const colorDisplayFunction = (value: string) => `
+  <div style="display: flex; gap:0.5em; align-items: center">
+    <span style="background-color: ${value}; width: 2em; height: 2em; border-radius: 50%;"></span>
+    <span style="line-height: 1;">${value}</span>
   </div>
 `;
 ---
@@ -36,49 +70,6 @@ const colorDisplayFunction = (value: string) =>
     A collection of helper functions to make it easy to generate random values
     for generative art, games, and more.
   </p>
-
-  <!-- 
-  <h2>Examples</h2>
-
-  <div class="example-group">
-    <Example
-      callbackFunction={() => {
-        const starSize = random(5, 10);
-        const star = `<circle cx="50" cy="50" r="${starSize}" fill="${random.hsl(
-          { h: [0, 100], s: [80, 100], l: [50, 80] }
-        )}" />`;
-        const planets = [];
-
-        for (
-          let distance = starSize + 5;
-          distance < 40;
-          distance += random(5, 10)
-        ) {
-          const orbit = `<circle cx="50" cy="50" fill="none" stroke="#ccc" r="${distance}"/>`;
-          const planet = `<circle 
-            cx="50" 
-            cy="${50 + distance}" 
-            fill="${random.hsl({ s: [80, 100], l: [60, 90] })}"  
-            r="${random(2, 4)}"
-          />`;
-          planets.push(`
-            <g style="transform-origin: center; rotate: ${random.degree()}deg;">
-              ${orbit}
-              ${planet}
-            </g>
-          `);
-        }
-        return `
-        <svg viewBox="0 0 100 100" width="300" height="300" style="background: #000">
-          ${star}
-          ${planets.join("\n")}
-        </svg>
-      `;
-      }}
-      
-      prefixedCode={startupCode}
-    />
-  </div> -->
 
   <h2>Getting Started</h2>
 
@@ -263,6 +254,47 @@ randomDegree();`}
         </svg>
       `;
       }}
+    />
+  </div>
+
+  <h2>Examples</h2>
+
+  <div class="example-group">
+    <Example
+      callbackFunction={() => {
+        const starSize = random(5, 10);
+        const star = `<circle cx="50" cy="50" r="${starSize}" fill="${randomHsl(
+          { h: [0, 100], s: [80, 100], l: [50, 80] }
+        )}" />`;
+        const planets = [];
+
+        for (
+          let distance = starSize + 5;
+          distance < 40;
+          distance += random(5, 10)
+        ) {
+          const orbit = `<circle cx="50" cy="50" fill="none" stroke="#ccc" r="${distance}"/>`;
+          const planet = `<circle 
+            cx="50" 
+            cy="${50 + distance}" 
+            fill="${randomHsl({ s: [80, 100], l: [60, 90] })}"  
+            r="${random(2, 4)}"
+          />`;
+          planets.push(`
+            <g style="transform-origin: center; rotate: ${randomDegree()}deg;">
+              ${orbit}
+              ${planet}
+            </g>
+          `);
+        }
+        return `
+          <svg viewBox="0 0 100 100" width="300" height="300" style="background: #000">
+            ${star}
+            ${planets.join("\n")}
+          </svg>
+        `;
+      }}
+      codeExample={advancedExampleCode.trim()}
     />
   </div>
 
