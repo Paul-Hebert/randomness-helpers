@@ -1,0 +1,11 @@
+---
+import { Code } from "astro/components";
+
+const { callbackFunction, codeExample } = Astro.props;
+---
+
+<div class="example">
+  <Code lang="js" code={codeExample} />
+
+  <output set:html={callbackFunction()} />
+</div>

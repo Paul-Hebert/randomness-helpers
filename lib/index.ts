@@ -1,37 +1,17 @@
-import { roundToPrecision } from "./round-to-precision/round-to-precision";
-import { create } from "random-seed";
+export { setRandomPrecision } from "./config/precision";
+export { setSeed } from "./config/set-seed";
+export { setRandomFunction } from "./config/random-function";
 
-interface SeededOptions {
-  precision: number;
-}
+export * from "./random/random";
 
-const defaultOptions = { precision: 2 };
+export * from "./random/number/int";
+export * from "./random/number/decimal";
+export * from "./random/number/percent";
 
-export function seeded(seed?: number, options?: SeededOptions) {
-  const seededRandom = create(seed);
+export * from "./random/chance/chance";
+export * from "./random/chance/item-in-array";
 
-  // Construct options
-  const { precision } = {
-    ...defaultOptions,
-    ...(options || {}),
-  };
+export * from "./random/geometry/degree";
 
-  const randomDecimal = () => seededRandom.floatBetween(0, 1);
-
-  const newSeed = (min: number, max: number) =>
-    roundToPrecision(randomDecimal() * (max - min) + min, precision);
-
-  newSeed.decimal = () => roundToPrecision(randomDecimal(), precision);
-  newSeed.percent = () => roundToPrecision(randomDecimal() * 100, precision);
-
-  newSeed.hue = () =>
-    roundToPrecision(seededRandom.floatBetween(0, 360), precision);
-  newSeed.saturation = newSeed.percent;
-  newSeed.lightness = newSeed.percent;
-  newSeed.alpha = newSeed.percent;
-
-  newSeed.hsl = () =>
-    `hsl(${newSeed.hue()}, ${newSeed.saturation()}%, ${newSeed.lightness()}%)`;
-
-  return newSeed;
-}
+export * from "./random/color/hsl/channels";
+export * from "./random/color/hsl/formatted";

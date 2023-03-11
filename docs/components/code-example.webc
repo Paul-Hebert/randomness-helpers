@@ -1,7 +1,10 @@
-<script>
-import { seeded } from '../../dist/seeded.js';
-
-const rando = seeded('poppy');
-
-console.log(rando(5, 10));
+<script webc:setup>
+  function alwaysBlue() {
+    return "blue";
+  }
 </script>
+
+<!-- @raw does not reprocess as WebC -->
+<div @html="alwaysBlue()"></div>
+
+<button onclick="console.log(alwaysBlue())">Click</button>
