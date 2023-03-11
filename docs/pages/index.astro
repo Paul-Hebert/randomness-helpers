@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Example from "../components/Example.astro";
+import { Example } from "../components/Example";
 import {
   random,
   randomDecimal,
@@ -87,26 +87,30 @@ const colorDisplayFunction = (value: string) => `
 
   <div class="example-group">
     <Example
+      client:load
       callbackFunction={() => random(5, 20)}
       codeExample={`import { random } from 'randomness-helpers';
 random(5, 20);`}
     />
-    <Example
+    <!-- <Example
+      client:load
       callbackFunction={() => randomInt(0, 100)}
       codeExample={`import { randomInt } from 'randomness-helpers';
 randomInt();`}
     />
 
     <Example
+      client:load
       callbackFunction={() => randomDecimal()}
       codeExample={`import { randomDecimal } from 'randomness-helpers';
 randomDecimal();`}
     />
 
     <Example
+      client:load
       callbackFunction={() => randomPercent()}
       codeExample={`import { randomPercent } from 'randomness-helpers';
-randomPercent();`}
+randomPercent();`} -->
     />
   </div>
 
@@ -137,7 +141,7 @@ const random = seed(123);
 random(0, 100);`}
   /> -->
 
-  <h2>Chance</h2>
+  <!-- <h2>Chance</h2>
 
   <p>There are a few helpers for common randomness operations.</p>
 
@@ -148,6 +152,7 @@ random(0, 100);`}
 
   <div class="example-group">
     <Example
+      client:load
       codeExample={`import { randomChance } from 'randomness-helpers';
       
 // A 50% chance of "heads"
@@ -155,6 +160,7 @@ randomChance() ? "heads" : "tails";`}
       callbackFunction={() => (randomChance() ? "heads" : "tails")}
     />
     <Example
+      client:load
       codeExample={`import { randomChance } from 'randomness-helpers';
       
 // A 75% chance of "cloudy"
@@ -166,6 +172,7 @@ randomChance(0.75) ? "cloudy" : "meatballs";`}
   <p>You can also easily get a random item from an array:</p>
 
   <Example
+    client:load
     codeExample={`import { randomItemInArray } from 'randomness-helpers';
 randomItemInArray(['The Good', 'The Bad', 'The Ugly'])`}
     callbackFunction={() =>
@@ -189,18 +196,21 @@ randomItemInArray(['The Good', 'The Bad', 'The Ugly'])`}
 
   <div class="example-group">
     <Example
+      client:load
       callbackFunction={() => colorDisplayFunction(randomHsl())}
       codeExample={`import { randomHsl } from 'randomness-helpers';
 randomHsl();`}
     />
 
     <Example
+      client:load
       callbackFunction={() => colorDisplayFunction(randomHsl({ h: [0, 60] }))}
       codeExample={`import { randomHsl } from 'randomness-helpers';
 randomHsl({ h: [0, 60] });`}
     />
 
     <Example
+      client:load
       callbackFunction={() =>
         colorDisplayFunction(randomHsl({ s: [40, 60], l: 75 }))}
       codeExample={`import { randomHsl } from 'randomness-helpers';
@@ -215,21 +225,25 @@ randomHsl({ s: [40, 60], l: 75 });`}
 
   <div class="example-group">
     <Example
+      client:load
       callbackFunction={() => randomHue()}
       codeExample={`import { randomHue } from 'randomness-helpers';
 randomHue();`}
     />
     <Example
+      client:load
       callbackFunction={() => randomSaturation()}
       codeExample={`import { randomSaturation } from 'randomness-helpers';
 randomSaturation();`}
     />
     <Example
+      client:load
       callbackFunction={() => randomLightness()}
       codeExample={`import { randomLightness } from 'randomness-helpers';
 randomLightness();`}
     />
     <Example
+      client:load
       callbackFunction={() => randomAlpha()}
       codeExample={`import { randomAlpha } from 'randomness-helpers';
 randomAlpha();`}
@@ -240,6 +254,7 @@ randomAlpha();`}
 
   <div class="example-group">
     <Example
+      client:load
       codeExample={`import { randomDegree } from 'randomness-helpers';
 randomDegree();`}
       callbackFunction={() => {
@@ -261,6 +276,7 @@ randomDegree();`}
 
   <div class="example-group">
     <Example
+      client:load
       callbackFunction={() => {
         const starSize = random(5, 10);
         const star = `<circle cx="50" cy="50" r="${starSize}" fill="${randomHsl(
@@ -296,7 +312,7 @@ randomDegree();`}
       }}
       codeExample={advancedExampleCode.trim()}
     />
-  </div>
+  </div> -->
 
   <style is:global>
     *,

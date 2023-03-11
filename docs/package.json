@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@astrojs/preact": "^2.1.0",
+    "preact": "^10.13.1"
+  }
+}

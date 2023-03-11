@@ -17,6 +17,27 @@ const { title } = Astro.props;
     />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <script type="module">
+      import {
+        random,
+        randomDecimal,
+        randomInt,
+        randomPercent,
+        randomChance,
+        randomDegree,
+        randomItemInArray,
+        randomHsl,
+        randomHue,
+        randomLightness,
+        randomSaturation,
+        randomAlpha,
+        setRandomPrecision,
+        setSeed,
+      } from "../../lib/index.js";
+
+      window.random = random;
+    </script>
   </head>
   <body>
     <slot />
