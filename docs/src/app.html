@@ -1,24 +1,16 @@
----
-export interface Props {
-  title: string;
-}
-
-const { title } = Astro.props;
----
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="%sveltekit.assets%/styles.css" />
     <meta name="viewport" content="width=device-width" />
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>"
     />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    %sveltekit.head%
   </head>
-  <body>
-    <slot />
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
   </body>
 </html>

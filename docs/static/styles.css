@@ -1,0 +1,64 @@
+*,
+*:before,
+*:after {
+  margin: 0;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+html {
+  --hue: 240;
+  font-size: clamp(1em, calc(0.8em + 0.5vw), 1.25em);
+  font-family: sans-serif;
+}
+
+body {
+  color: hsl(var(--hue), 80%, 5%);
+  background-color: hsl(var(--hue), 10%, 98%);
+
+  max-width: 80ch;
+  margin: 0 auto;
+  padding: 4em 1em;
+}
+
+p {
+  max-width: 70ch;
+}
+
+main > * + * {
+  margin-top: 1.25em;
+}
+
+main > * + :is(h1, h2, h3, h4, h5, h6) {
+  margin-top: 1.5em;
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+  color: hsl(var(--hue), 100%, 10%);
+}
+
+:not(pre) > code {
+  color: hsl(var(--hue), 100%, 15%);
+  background-color: hsl(var(--hue), 50%, 97%);
+  border: 1px solid hsl(var(--hue), 50%, 85%);
+  padding: 0.08em 0.2em;
+  border-radius: 0.25em;
+}
+
+.example-group {
+  display: flex;
+  gap: 0.75em;
+  flex-wrap: wrap;
+}
+
+.example-group > * {
+  flex-grow: 1;
+}
+
+main > pre > code {
+  border-radius: 0.25em;
+}
+
+pre {
+  tab-size: 2ch;
+}
