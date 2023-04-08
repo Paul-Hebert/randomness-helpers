@@ -15,14 +15,20 @@ html {
 body {
   color: hsl(var(--hue), 80%, 5%);
   background-color: hsl(var(--hue), 10%, 98%);
-
-  max-width: 80ch;
+  max-width: 120ch;
   margin: 0 auto;
   padding: 4em 1em;
+  display: grid;
+  gap: 3em;
 }
 
 p {
   max-width: 70ch;
+}
+
+main {
+  max-width: 120ch;
+  margin: 0 auto;
 }
 
 main > * + * {
