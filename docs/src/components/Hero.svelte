@@ -12,11 +12,11 @@
 <style>
   section {
     display: grid;
-    place-items: center;
+    align-items: center;
     gap: 1em;
     grid-template-areas: 
     'heading description'
-    'cta .';
+    '. cta';
   }
 
   h1 {
