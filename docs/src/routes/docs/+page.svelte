@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Example from '../../components/Example.svelte'
+  import DocsExample from '../../components/DocsExample.svelte'
   import Highlight from 'svelte-highlight';
   import {
     random,
@@ -45,21 +45,21 @@
   </p>
 
   <div class="example-group">
-    <Example
+    <DocsExample
       callback={() => random(5, 20)}
       imports={['random']}
     />
-    <Example
+    <DocsExample
       callback={() => randomInt(0, 100)}
       imports={['randomInt']}
     />
 
-    <Example
+    <DocsExample
       callback={() => randomDecimal()}
       imports={['randomDecimal']}
     />
 
-    <Example
+    <DocsExample
       callback={() => randomPercent()}
       imports={['randomPercent']}
     />
@@ -102,11 +102,11 @@
   </p>
 
   <div class="example-group">
-    <Example
+    <DocsExample
       imports={['randomChance']}
       callback={() => (randomChance() ? "heads" : "tails")}
     />
-    <Example
+    <DocsExample
       imports={['randomChance']}
       callback={() => (randomChance(0.75) ? "cloudy" : "meatballs")}
     />
@@ -114,7 +114,7 @@
 
   <p>You can also easily get a random item from an array:</p>
 
-  <Example
+  <DocsExample
       imports={['randomItemInArray']}
     callback={() =>
       randomItemInArray(["The Good", "The Bad", "The Ugly"])}
@@ -136,19 +136,19 @@
   </p>
 
   <div class="example-group">
-    <Example
+    <DocsExample
       callback={() => randomHsl()}
       imports={['randomHsl']}
       displayFunction={colorDisplayFunction}
     />
 
-    <Example
+    <DocsExample
       callback={() => randomHsl({ h: [0, 60] })}
       imports={['randomHsl']}
       displayFunction={colorDisplayFunction}
     />
 
-    <Example
+    <DocsExample
       callback={() =>
         randomHsl({ s: [40, 60], l: 75 })}
       imports={['randomHsl']}
@@ -162,19 +162,19 @@
   </p>
 
   <div class="example-group">
-    <Example
+    <DocsExample
       callback={() => randomHue()}
       imports={['randomHue']}
     />
-    <Example
+    <DocsExample
       callback={() => randomSaturation()}
       imports={['randomSaturation']}
     />
-    <Example
+    <DocsExample
       callback={() => randomLightness()}
       imports={['randomLightness']}
     />
-    <Example
+    <DocsExample
       callback={() => randomAlpha()}
       imports={['randomAlpha']}
     />
@@ -183,7 +183,7 @@
   <h2>Geometry</h2>
 
   <div class="example-group">
-    <Example
+    <DocsExample
       imports={['randomDegree']}
       callback={() => randomDegree()}
       displayFunction={(value) => `

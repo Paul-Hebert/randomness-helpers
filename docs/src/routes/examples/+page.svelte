@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Example from '../../components/Example.svelte'
+  import DocsExample from '../../components/DocsExample.svelte'
   import { solarSystem } from '../../examples/solar-system';
 </script>
 
@@ -8,7 +8,7 @@
 
   <h2>{solarSystem.title}</h2>
 
-  <Example
+  <DocsExample
     imports={solarSystem.imports}
     callback={solarSystem.callback}
   />

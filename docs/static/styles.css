@@ -15,11 +15,16 @@ html {
 body {
   color: hsl(var(--hue), 80%, 5%);
   background-color: hsl(var(--hue), 10%, 98%);
-  max-width: 120ch;
-  margin: 0 auto;
-  padding: 4em 1em;
-  display: grid;
+  padding: 1em;
   gap: 3em;
+}
+
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 p {
