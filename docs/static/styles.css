@@ -7,7 +7,7 @@
 }
 
 html {
-  --hue: 240;
+  --hue: 120;
   font-size: clamp(1em, calc(0.8em + 0.5vw), 1.25em);
   font-family: sans-serif;
 }

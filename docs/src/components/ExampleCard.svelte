@@ -1,4 +1,6 @@
 <script lang="ts">
+  import RefreshButton from "./RefreshButton.svelte";
+
   export let callback: () => string | number;
   export let title: string;
   export let path: string;
@@ -9,9 +11,9 @@
 
 <article style="--rotation: {rotation}deg;">
   <header>
-    <a href="{path}">{title}</a>
+    <a href={path}>{title}</a>
 
-    <button on:click={() => value = callback()}>Refresh</button>
+    <RefreshButton onClick={() => (value = callback())} />
   </header>
 
   <div>{@html value.toString()}</div>
@@ -23,7 +25,7 @@
     border-radius: 0.5em;
     overflow: hidden;
     position: relative;
-    grid-template-areas: 'content';
+    grid-template-areas: "content";
     transition: transform 0.2s ease-out;
     transform: scale(0.95) rotate(var(--rotation));
     box-shadow: 0 2px 4px 2px hsla(0, 0%, 0%, 0.1);
@@ -33,7 +35,8 @@
     transform: translateY(-1px);
   }
 
-  header, div {
+  header,
+  div {
     grid-area: content;
   }
 
@@ -41,6 +44,7 @@
     align-self: end;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: hsla(0, 0%, 100%, 0.9);
     padding: 1em;
     gap: 1em;
@@ -64,13 +68,8 @@
   }
 
   a::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
-  }
-
-  button {
-    position: relative;
-    z-index: 2;
   }
 </style>

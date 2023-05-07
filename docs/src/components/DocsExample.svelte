@@ -1,27 +1,29 @@
 <script lang="ts">
-  import Highlight from 'svelte-highlight';
-	import { javascript } from 'svelte-highlight/languages';
+  import Highlight from "svelte-highlight";
+  import { javascript } from "svelte-highlight/languages";
   import "svelte-highlight/styles/hybrid.css";
+  import RefreshButton from "./RefreshButton.svelte";
 
   export let callback: () => string | number;
-  export let displayFunction: ((value: string) => string) = (value) => value;
+  export let displayFunction: (value: string) => string = (value) => value;
   export let imports: string[];
 
-  let codeExample = callback.toString()
+  let codeExample = callback
+    .toString()
     // Remove Vite import transformations from code examples
-    .replace(/__vite_ssr_import_(.+)__\./g, '')
+    .replace(/__vite_ssr_import_(.+)__\./g, "")
     // Remove arrow function wrapper
     // TODO: Remove brackets around functions with brackets.
     // TODO: Handle indentation better
-    .replace('() => ','');
+    .replace("() => ", "");
 
-  if(imports) {
-    codeExample = `import { ${imports.join(', ')} }  from 'randomness-helpers';
+  if (imports) {
+    codeExample = `import { ${imports.join(", ")} }  from 'randomness-helpers';
     
-${codeExample}`
+${codeExample}`;
   }
 
-    let value = callback();
+  let value = callback();
 </script>
 
 <div class="example">
@@ -31,7 +33,9 @@ ${codeExample}`
 
   <output>{@html displayFunction(value.toString())}</output>
 
-  <button on:click={() => value = callback()}>Refresh</button>
+  <div class="button-wrapper">
+    <RefreshButton onClick={() => (value = callback())} />
+  </div>
 </div>
 
 <style>
@@ -40,12 +44,12 @@ ${codeExample}`
     overflow: hidden;
     background-color: hsl(var(--hue), 10%, 90%);
     display: grid;
-    grid-template-areas: 
-      'code code'
-      'output refresh';
+    grid-template-areas:
+      "code code"
+      "output refresh";
     grid-template-columns: 1fr auto;
   }
-  
+
   .code-wrapper {
     line-height: 1.5;
     grid-area: code;
@@ -60,7 +64,7 @@ ${codeExample}`
     gap: 0.75em;
   }
 
-  button {
+  .button-wrapper {
     align-self: center;
     grid-area: refresh;
     margin: 1em;
