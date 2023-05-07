@@ -37,11 +37,15 @@ main {
   margin: 0 auto;
 }
 
-main > * + * {
+:is(main, section) > * + * {
   margin-top: 1.25em;
 }
 
-main > * + :is(h1, h2, h3, h4, h5, h6) {
+main > * + section {
+  margin-top: 3em;
+}
+
+:is(section, main) > * + :is(h1, h2, h3, h4, h5, h6) {
   margin-top: 1.5em;
 }
 

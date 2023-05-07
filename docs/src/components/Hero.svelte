@@ -2,7 +2,7 @@
   <h1>Seeded</h1>
 
   <p>
-    A collection of helper functions to make it easy to generate random numbers, 
+    A collection of helper functions to make it easy to generate random numbers,
     colors and more for generative art and games.
   </p>
 
@@ -14,9 +14,9 @@
     display: grid;
     align-items: center;
     gap: 1em;
-    grid-template-areas: 
-    'heading description'
-    '. cta';
+    grid-template-areas:
+      "heading heading"
+      "description cta";
   }
 
   h1 {
