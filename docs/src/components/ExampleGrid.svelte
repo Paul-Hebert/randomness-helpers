@@ -1,12 +1,9 @@
 <script lang="ts">
-  import { random, setSeed } from "../../../dist";
+  import { random, randomChance } from "../../../dist";
   import type { ExampleData } from "../examples/example-data";
   import ExampleCard from "./ExampleCard.svelte";
 
   export let examples: ExampleData[];
-  export let seed = 1;
-
-  setSeed(seed);
 </script>
 
 <ul>
@@ -16,7 +13,7 @@
         callback={example.callback}
         title={example.title}
         path={`examples/${example.slug}`}
-        rotation={random(-2, 2)}
+        rotation={random(1, 2.5) * (randomChance() ? 1 : -1)}
       />
     </li>
   {/each}

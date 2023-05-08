@@ -34,7 +34,8 @@
 
 <style>
   button {
-    background-color: hsl(var(--hue), 75%, 65%);
+    color: hsl(var(--hue), 75%, 95%);
+    background-color: hsl(var(--hue), 75%, 35%);
     border: none;
     border-radius: 0.25em;
     cursor: pointer;
@@ -50,11 +51,15 @@
 
   @media (prefers-reduced-motion: no-preference) {
     button {
-      transition: transform 0.3s ease-out;
+      box-shadow: 0 1px 2px 1px hsla(0, 0%, 0%, 0.1);
+      transition-property: transform, box-shadow;
+      transition-duration: 0.3s;
+      transition-timing-function: ease-out;
       transform: scale(0.95);
     }
 
-    button:hover {
+    button:hover:not(:active) {
+      box-shadow: 0 2px 4px 2px hsla(0, 0%, 0%, 0.12);
       transform: scale(1.05) translateY(-1px);
     }
 

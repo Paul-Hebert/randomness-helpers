@@ -26,13 +26,16 @@
     overflow: hidden;
     position: relative;
     grid-template-areas: "content";
-    transition: transform 0.2s ease-out;
+    transition-property: transform, box-shadow;
+    transition-timing-function: ease-out;
+    transition-duration: 0.2s;
     transform: scale(0.95) rotate(var(--rotation));
     box-shadow: 0 2px 4px 2px hsla(0, 0%, 0%, 0.1);
   }
 
   article:hover {
     transform: translateY(-1px);
+    box-shadow: 0 1px 7px 4px hsla(0, 0%, 0%, 0.12);
   }
 
   header,

@@ -2,8 +2,8 @@ import type { ExampleData } from "./example-data";
 import { random, randomDegree, randomHsl, setSeed } from "../../../dist/index";
 
 export const solarSystem: ExampleData = {
-  title: "Solar System",
-  slug: "solar-system",
+  title: "Solar Systems",
+  slug: "solar-systems",
   imports: ["random", "randomHsl", "randomDegree"],
   callback: () => {
     const starSize = random(5, 10);
