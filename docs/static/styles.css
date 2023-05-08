@@ -41,7 +41,7 @@ main {
   margin-top: 1.25em;
 }
 
-main > * + section {
+section + section {
   margin-top: 3em;
 }
 

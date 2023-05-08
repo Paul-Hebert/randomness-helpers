@@ -1,180 +1,62 @@
 <script lang="ts">
-  import DocsExample from "../../components/DocsExample.svelte";
-  import Highlight from "svelte-highlight";
-  import {
-    random,
-    randomDecimal,
-    randomInt,
-    randomPercent,
-    randomChance,
-    randomDegree,
-    randomItemInArray,
-    randomHsl,
-    randomHue,
-    randomLightness,
-    randomSaturation,
-    randomAlpha,
-    setSeed,
-  } from "../../../../dist/index";
-  import { plaintext } from "svelte-highlight/languages";
+  import Chance from "../../components/docs-sections/Chance.svelte";
+  import Colors from "../../components/docs-sections/Colors.svelte";
+  import Geometry from "../../components/docs-sections/Geometry.svelte";
+  import Intro from "../../components/docs-sections/Intro.svelte";
+  import NumberHelpers from "../../components/docs-sections/NumberHelpers.svelte";
 
-  // Setting an initial seed ensures values are consistent between static rendering
-  // and initial hydration
-  setSeed(1);
-
-  const colorDisplayFunction = (value: string) => `
-    <span style="background-color: ${value}; width: 2em; height: 2em; border-radius: 50%;"></span>
-    <span style="line-height: 1;">${value}</span>
-  `;
+  const sections = [
+    { title: "Intro", slug: "intro", content: Intro },
+    { title: "Numbers", slug: "numbers", content: NumberHelpers },
+    { title: "Chance", slug: "chance", content: Chance },
+    { title: "Colors", slug: "colors", content: Colors },
+    { title: "Geometry", slug: "geometry", content: Geometry },
+  ];
 </script>
 
 <main>
-  <h1>Getting Started</h1>
+  <nav>
+    <ul>
+      {#each sections as section}
+        <li><a href={`#${section.slug}`}>{section.title}</a></li>
+      {/each}
+    </ul>
+  </nav>
+  <div>
+    {#each sections as section}
+      <section>
+        {#if section.title === "intro"}
+          <h1 id={section.slug}>{section.title}</h1>
+        {:else}
+          <h2 id={section.slug}>{section.title}</h2>
+        {/if}
 
-  <p>You can install the library from npm:</p>
-
-  <Highlight language={plaintext} code="npm i randomness-helpers" />
-
-  <h2>Number Helpers</h2>
-
-  <p>
-    The library has a number of helper methods for generating different types of
-    numbers, colors, geometric values, and more. For example, here are a few
-    common random number helpers:
-  </p>
-
-  <div class="example-group">
-    <DocsExample callback={() => random(5, 20)} imports={["random"]} />
-    <DocsExample callback={() => randomInt(0, 100)} imports={["randomInt"]} />
-
-    <DocsExample callback={() => randomDecimal()} imports={["randomDecimal"]} />
-
-    <DocsExample callback={() => randomPercent()} imports={["randomPercent"]} />
-  </div>
-
-  <!-- <h2>Seeded Randomness</h2>
-
-  <p>
-    By default, the helper methods rely on <code>Math.random</code>. If you
-    would prefer to use seeded random values there is a separate export for
-    that. These functions are slightly slower, but ensure that each time you run
-    a series of random operations with the same seed, they'll return the same
-    values.
-  </p>
-
-  <p>TODO: Explain why this is helpful. Explain it can be slower.</p>
-
-  <p>
-    You'll need to call the <code>seed</code> function with your chosen seed to initialize
-    the random number generator. From there you can use it the same way as the non-seeded
-    helpers.
-  </p>
-
-  <Code
-    lang="js"
-    code={`import { seed } from 'randomness-helpers';
-
-  const random = seed(123);
-
-  random(0, 100);`}
-  /> -->
-
-  <h2>Chance</h2>
-
-  <p>There are a few helpers for common randomness operations.</p>
-
-  <p>
-    <code>chance</code> returns either true or false. By default, it has a 50%
-    chance of being <code>true</code> but you can pass in an optional likelihood
-    variable.
-  </p>
-
-  <div class="example-group">
-    <DocsExample
-      imports={["randomChance"]}
-      callback={() => (randomChance() ? "heads" : "tails")}
-    />
-    <DocsExample
-      imports={["randomChance"]}
-      callback={() => (randomChance(0.75) ? "cloudy" : "meatballs")}
-    />
-  </div>
-
-  <p>You can also easily get a random item from an array:</p>
-
-  <DocsExample
-    imports={["randomItemInArray"]}
-    callback={() => randomItemInArray(["The Good", "The Bad", "The Ugly"])}
-  />
-
-  <h2>Colors</h2>
-
-  <p>There are also helpers to generate random HSL colors.</p>
-
-  <p>
-    You can generate a completely random color, or pass in an object with
-    optional <code>h</code>, <code>s</code>, <code>l</code>, and <code>a</code> properties.
-    (For hue, saturation, lightness, and alpha (transparency.))
-  </p>
-  <p>
-    Each property should either be an exact value, or an array with
-    <code>[min, max]</code>
-    values.
-  </p>
-
-  <div class="example-group">
-    <DocsExample
-      callback={() => randomHsl()}
-      imports={["randomHsl"]}
-      displayFunction={colorDisplayFunction}
-    />
-
-    <DocsExample
-      callback={() => randomHsl({ h: [0, 60] })}
-      imports={["randomHsl"]}
-      displayFunction={colorDisplayFunction}
-    />
-
-    <DocsExample
-      callback={() => randomHsl({ s: [40, 60], l: 75 })}
-      imports={["randomHsl"]}
-      displayFunction={colorDisplayFunction}
-    />
-  </div>
-
-  <p>
-    You can also generate individual <code>hue</code>, <code>saturation</code>,
-    and <code>lightness</code> values:
-  </p>
-
-  <div class="example-group">
-    <DocsExample callback={() => randomHue()} imports={["randomHue"]} />
-    <DocsExample
-      callback={() => randomSaturation()}
-      imports={["randomSaturation"]}
-    />
-    <DocsExample
-      callback={() => randomLightness()}
-      imports={["randomLightness"]}
-    />
-    <DocsExample callback={() => randomAlpha()} imports={["randomAlpha"]} />
-  </div>
-
-  <h2>Geometry</h2>
-
-  <div class="example-group">
-    <DocsExample
-      imports={["randomDegree"]}
-      callback={() => randomDegree()}
-      displayFunction={(value) => `
-        <svg style="rotate: ${value}deg; overflow: visible;" viewBox="0 0 100 100" width="50" height="50">
-          <circle fill="#fff6" stroke="#000" r="49" cx="50" cy="50" />
-          <circle fill="#000" r="10" cx="50" cy="50" />
-          <circle fill="#000" r="5" cx="50" cy="1" />
-          <line fill="none" stroke="#000" x1="50" y1="50" x2="50" y2="1" />
-        </svg>
-        ${value}
-      `}
-    />
+        <svelte:component this={section.content} />
+      </section>
+    {/each}
   </div>
 </main>
+
+<style>
+  @media (min-width: 600px) {
+    main {
+      display: flex;
+    }
+
+    nav {
+      width: 30em;
+      position: sticky;
+      top: 1em;
+      align-self: start;
+    }
+
+    nav ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    nav ul ul {
+      padding-left: 2em;
+    }
+  }
+</style>
