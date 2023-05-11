@@ -1,10 +1,13 @@
 <script lang="ts">
+  import { random } from "../../../dist";
   import RefreshButton from "./RefreshButton.svelte";
 
   export let callback: () => string | number;
   export let title: string;
   export let path: string;
-  export let rotation = 0;
+  export let rotationFunction: () => number;
+
+  let rotation = rotationFunction();
 
   let value = callback();
 </script>
@@ -13,7 +16,12 @@
   <header>
     <a href={path}>{title}</a>
 
-    <RefreshButton onClick={() => (value = callback())} />
+    <RefreshButton
+      onClick={() => {
+        value = callback();
+        rotation = rotationFunction();
+      }}
+    />
   </header>
 
   <div>{@html value.toString()}</div>
@@ -49,8 +57,8 @@
     justify-content: space-between;
     align-items: center;
     background-color: hsla(0, 0%, 100%, 0.9);
-    padding: 1em;
-    gap: 1em;
+    padding: 0.5em 0.5em;
+    gap: 0.75em;
     z-index: 1;
   }
 

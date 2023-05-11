@@ -13,7 +13,7 @@
         callback={example.callback}
         title={example.title}
         path={`examples/${example.slug}`}
-        rotation={random(1, 2.5) * (randomChance() ? 1 : -1)}
+        rotationFunction={() => random(1, 2.5) * (randomChance() ? 1 : -1)}
       />
     </li>
   {/each}
