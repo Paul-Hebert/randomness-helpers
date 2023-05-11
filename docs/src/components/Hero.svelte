@@ -1,5 +1,5 @@
 <section>
-  <h1>Seeded</h1>
+  <h1>Randomness Helpers</h1>
 
   <p>
     A collection of helper functions to make it easy to generate random numbers,

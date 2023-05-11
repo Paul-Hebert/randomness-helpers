@@ -1,5 +1,5 @@
 {
-  "name": "seeded-helpers",
+  "name": "randomness-helpers",
   "type": "module",
   "version": "0.0.1",
   "main": "./dist/index.umd.cjs",
