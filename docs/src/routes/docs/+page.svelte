@@ -1,12 +1,14 @@
 <script lang="ts">
   import Chance from "../../components/docs-sections/Chance.svelte";
   import Colors from "../../components/docs-sections/Colors.svelte";
+  import Configuration from "../../components/docs-sections/Configuration.svelte";
   import Geometry from "../../components/docs-sections/Geometry.svelte";
   import Intro from "../../components/docs-sections/Intro.svelte";
   import NumberHelpers from "../../components/docs-sections/NumberHelpers.svelte";
 
   const sections = [
     { title: "Intro", slug: "intro", content: Intro },
+    { title: "Configuration", slug: "config", content: Configuration },
     { title: "Numbers", slug: "numbers", content: NumberHelpers },
     { title: "Chance", slug: "chance", content: Chance },
     { title: "Colors", slug: "colors", content: Colors },

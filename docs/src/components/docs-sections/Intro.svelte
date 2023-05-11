@@ -11,6 +11,6 @@
 
 <style>
   div :global(.hljs) {
-    border-radius: 0, 25em;
+    border-radius: 0.25em;
   }
 </style>
