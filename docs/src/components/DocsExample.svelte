@@ -18,7 +18,7 @@
     .replace("() => ", "");
 
   if (imports) {
-    codeExample = `import { ${imports.join(", ")} }  from 'randomness-helpers';
+    codeExample = `import { ${imports.join(", ")} } from 'randomness-helpers';
     
 ${codeExample}`;
   }
