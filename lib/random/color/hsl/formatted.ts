@@ -1,10 +1,10 @@
 import { numberOrRangeToNumber } from "../../../helpers/number-or-range-to-number";
 
 export interface HslOptions {
-  h?: number[] | number;
-  s?: number[] | number;
-  l?: number[] | number;
-  a?: number[] | number | null;
+  h?: [number, number] | number;
+  s?: [number, number] | number;
+  l?: [number, number] | number;
+  a?: [number, number] | number | null;
 }
 
 const defaultHslOptions: HslOptions = {
