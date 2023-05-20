@@ -4,6 +4,7 @@
     randomInt,
     randomDecimal,
     randomPercent,
+    randomChanceOfNegative,
   } from "../../../../dist/index.js";
   import DocsExample from "../DocsExample.svelte";
 </script>
@@ -21,4 +22,9 @@
   <DocsExample callback={() => randomDecimal()} imports={["randomDecimal"]} />
 
   <DocsExample callback={() => randomPercent()} imports={["randomPercent"]} />
+
+  <DocsExample
+    callback={() => randomChanceOfNegative(1)}
+    imports={["randomChanceOfNagative"]}
+  />
 </div>

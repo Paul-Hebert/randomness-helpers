@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { random, randomChance } from "../../../dist";
+  import { random, randomChanceOfNegative } from "../../../dist";
   import type { ExampleData } from "../examples/example-data";
   import ExampleCard from "./ExampleCard.svelte";
 
@@ -13,7 +13,7 @@
         callback={example.callback}
         title={example.title}
         path={`examples/${example.slug}`}
-        rotationFunction={() => random(1, 2.5) * (randomChance() ? 1 : -1)}
+        rotationFunction={() => randomChanceOfNegative(random(1, 2.5))}
       />
     </li>
   {/each}
