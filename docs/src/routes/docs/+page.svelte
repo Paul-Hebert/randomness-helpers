@@ -5,6 +5,7 @@
   import Geometry from "../../components/docs-sections/Geometry.svelte";
   import Intro from "../../components/docs-sections/Intro.svelte";
   import NumberHelpers from "../../components/docs-sections/NumberHelpers.svelte";
+  import PlannedFeatures from "../../components/docs-sections/PlannedFeatures.svelte";
 
   const sections = [
     { title: "Intro", slug: "intro", content: Intro },
@@ -13,6 +14,7 @@
     { title: "Chance", slug: "chance", content: Chance },
     { title: "Colors", slug: "colors", content: Colors },
     { title: "Geometry", slug: "geometry", content: Geometry },
+    { title: "Planned Features", slug: "planned", content: PlannedFeatures },
   ];
 </script>
 
