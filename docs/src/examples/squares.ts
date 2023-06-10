@@ -1,5 +1,5 @@
 import type { ExampleData } from "./example-data";
-import { randomHsl, randomInt } from "../../../lib/index";
+import { randomHsl, randomInt } from "randomness-helpers";
 
 export const squares: ExampleData = {
   title: "Squares",

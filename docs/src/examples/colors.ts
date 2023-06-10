@@ -4,7 +4,7 @@ import {
   randomHue,
   randomSaturation,
   randomInt,
-} from "../../../lib/index";
+} from "randomness-helpers";
 
 export const colors: ExampleData = {
   title: "Colors",

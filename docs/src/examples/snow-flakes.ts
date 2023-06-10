@@ -5,7 +5,7 @@ import {
   randomSaturation,
   randomInt,
   random,
-} from "../../../lib/index";
+} from "randomness-helpers";
 
 export const snowFlakes: ExampleData = {
   title: "Snow Flakes",

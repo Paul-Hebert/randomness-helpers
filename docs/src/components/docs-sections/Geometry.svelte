@@ -1,5 +1,5 @@
 <script>
-  import { randomDegree } from "../../../../lib/index.ts";
+  import { randomDegree } from "randomness-helpers";
 
   import DocsExample from "../DocsExample.svelte";
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { random, randomChanceOfNegative } from "../../../lib/index";
+  import { random, randomChanceOfNegative } from "randomness-helpers";
   import type { ExampleData } from "../examples/example-data";
   import ExampleCard from "./ExampleCard.svelte";
 

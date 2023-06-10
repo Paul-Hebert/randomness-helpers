@@ -1,6 +1,6 @@
 // @ts-nocheck
 import type { ExampleData } from "./example-data";
-import { random, randomInt, randomDegree, randomHsl } from "../../../lib/index";
+import { random, randomInt, randomDegree, randomHsl } from "randomness-helpers";
 
 export const colorWheel: ExampleData = {
   title: "Color Wheel",

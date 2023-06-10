@@ -1,5 +1,5 @@
 import type { ExampleData } from "./example-data";
-import { random, randomDegree, randomHsl, setSeed } from "../../../lib/index";
+import { random, randomDegree, randomHsl, setSeed } from "randomness-helpers";
 
 export const solarSystem: ExampleData = {
   title: "Solar Systems",
