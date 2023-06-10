@@ -4,7 +4,7 @@ import {
   randomHue,
   randomSaturation,
   randomInt,
-} from "../../../dist/index";
+} from "../../../lib/index";
 
 export const colors: ExampleData = {
   title: "Colors",

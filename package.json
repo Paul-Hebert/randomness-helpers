@@ -3,11 +3,11 @@
   "type": "module",
   "version": "0.0.1",
   "main": "./dist/index.umd.cjs",
-  "module": "./lib/index.ts",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./lib/index.ts",
+      "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
     }
   },

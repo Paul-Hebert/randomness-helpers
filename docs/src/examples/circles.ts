@@ -1,11 +1,6 @@
 // @ts-nocheck
 import type { ExampleData } from "./example-data";
-import {
-  random,
-  randomInt,
-  randomDegree,
-  randomHsl,
-} from "../../../dist/index";
+import { random, randomInt, randomDegree, randomHsl } from "../../../lib/index";
 
 export const circles: ExampleData = {
   title: "Circles",
