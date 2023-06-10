@@ -13,6 +13,9 @@ const config = {
     // See https://kit.svelte.dev/docs/adapters for more information about adapters.
     adapter: adapter(),
   },
+  build: {
+    minify: false,
+  },
 };
 
 export default config;
