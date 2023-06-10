@@ -2,6 +2,7 @@
 dist/
 docs-dist/
 coverage
+.netlify
 
 # generated types
 .astro/

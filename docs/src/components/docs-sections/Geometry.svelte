@@ -1,5 +1,5 @@
 <script>
-  import { randomDegree } from "../../../../dist/index.js";
+  import { randomDegree } from "../../../../lib/index.ts";
 
   import DocsExample from "../DocsExample.svelte";
 </script>

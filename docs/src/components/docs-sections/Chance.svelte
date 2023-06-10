@@ -1,5 +1,5 @@
 <script>
-  import { randomChance, randomItemInArray } from "../../../../dist/index.js";
+  import { randomChance, randomItemInArray } from "../../../../lib/index.ts";
 
   import DocsExample from "../DocsExample.svelte";
 </script>

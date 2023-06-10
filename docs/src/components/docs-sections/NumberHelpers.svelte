@@ -5,7 +5,7 @@
     randomDecimal,
     randomPercent,
     randomChanceOfNegative,
-  } from "../../../../dist/index.js";
+  } from "../../../../lib/index.ts";
   import DocsExample from "../DocsExample.svelte";
 </script>
 

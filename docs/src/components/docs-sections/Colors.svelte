@@ -5,7 +5,7 @@
     randomHue,
     randomLightness,
     randomSaturation,
-  } from "../../../../dist/index.js";
+  } from "../../../../lib/index.ts";
   import DocsExample from "../DocsExample.svelte";
 
   const colorDisplayFunction = (value: string) => `
