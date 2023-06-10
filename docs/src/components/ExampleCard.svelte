@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { random } from "../../../dist";
   import RefreshButton from "./RefreshButton.svelte";
 
   export let callback: () => string | number;
